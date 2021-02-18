@@ -33,7 +33,7 @@ void DistanceSensor::stopTimerAndMeasure()
     calculatedDistance = timer.elapsed_time().count() * 0.0343f/2 ;
     //The <Algorithm> include would have a handy std::clamp to clamp our values
     //But this can also be done with some simple if-statements!
-    calculatedDistance = (calculatedDistance > maxClamp) ? maxClamp : calculatedDistance;
+    calculatedDistance = (calculatedDistance > maxClamp) ? minClamp : calculatedDistance;
     calculatedDistance = (calculatedDistance < minClamp) ? minClamp : calculatedDistance; 
     timer.reset();
     echoTimeout.detach(); //Dont look for the missing fall anymore.
