@@ -5,55 +5,50 @@
 
  
 
-DistanceSensor  disSensor(D9,D10);
+DistanceSensor  disSensor(D0,D1);
 Timer bounceBackTimer;
 Timeout timerTimeOut;
-InterruptIn magContact(D4);
+InterruptIn magContact(D12);
 EventQueue queue(32 * EVENTS_EVENT_SIZE);
 Thread t;
 
+//Fields
+bool canMeasure = true;
 
 
 unsigned int dist = 0;
 void getDistanceFromSensor()
 {
-        dist=disSensor.getDistanceInCm();
-        printf("cm:%u",dist );
+    dist=disSensor.getDistanceInCm();
+    printf("cm:%u",dist );
+    
 }
-void stopTimer()
+void enableMeasure()
 {
-    bounceBackTimer.stop();
-    bounceBackTimer.reset();
-
+    canMeasure = !canMeasure;
 }
 void startDist(void)
 {
-    if (bounceBackTimer.elapsed_time().count() == 0)
+    if (canMeasure)
     {
-        bounceBackTimer.start();
+        //Disable possible measuring
+        enableMeasure();
+        //Get the distance from sensor
         getDistanceFromSensor();
-        timerTimeOut.attach(callback(&stopTimer), 500ms);
+        //Wait for 500ms, then re-enable measuring
+        timerTimeOut.attach(callback(&enableMeasure), 1500ms);
     }
-
-
-
-
 
 }
 
 int main()
 {
-        // Start the event queue
+    // Start the event queue
     t.start(callback(&queue, &EventQueue::dispatch_forever));
-    printf("Starting in context %p\r\n", ThisThread::get_id());
-    // The 'rise' handler will execute in IRQ context
+
     magContact.fall(queue.event( startDist));
-    // The 'fall' handler will execute in the context of thread 't'
 
     while(1) {
-
-    //
-    //ThisThread::sleep_for(1s);
     }
 }
 
