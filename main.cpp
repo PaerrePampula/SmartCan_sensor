@@ -1,19 +1,11 @@
-#include "Adafruit_GFX.h"
-#include "Adafruit_SSD1331.h"
+#include "ScreenControl.h"
+#include "MQTTNetworkingControl.h"
 #include "DistanceSensor.h"
 #include "mbed.h"
-#include <MQTTClientMbedOs.h>
 #include <cstdio>
 
-#include "ESP8266Interface.h"
-#define Black 0x0000
-#define Blue 0x001F
-#define Red 0xF800
-#define Green 0x07E0
-#define Cyan 0x07FF
-#define Magenta 0xF81F
-#define Yellow 0xFFE0
-#define White 0xFFFF
+
+
 ESP8266Interface esp(MBED_CONF_APP_ESP_TX_PIN, MBED_CONF_APP_ESP_RX_PIN);
 DistanceSensor disSensor(D0, D1);
 TCPSocket socket;
@@ -74,21 +66,7 @@ void initialize()
   // PMODEN = 1;
   // Need to set to High, if these two are not connected to the 3.3V power
   // supply directly.
-  OLED.begin(); // initialization of display object
-  OLED.clearScreen();
-  OLED.fillScreen(White);   // background screen in blue
-  OLED.setTextColor(Black); // colour of text in cyan
-  OLED.setCursor(0, 20);    // cursor is in x=0 and y=0
-  OLED.setTextSize(1);
-  OLED.printf("Hello from SmartCan!\n[Calibrating...]");
-  calibratedDistance = disSensor.getDistanceInCm();
-  OLED.setCursor(0, 20); // cursor is in x=0 and y=0
-  ThisThread::sleep_for(2s);
-  OLED.clearScreen();
-  OLED.fillScreen(White); // background screen in blue
-  OLED.printf("[DONE]\nDepth:%dcm", calibratedDistance);
-  ThisThread::sleep_for(2s);
-  OLED.clearScreen();
+
 }
 void updateScreenInfo() 
 {
@@ -139,7 +117,10 @@ void startDist(void)
 
 int main() 
 {
-  initialize();
+  ScreenControl sControl(OLED);
+  //sControl self-initializes
+    calibratedDistance = disSensor.getDistanceInCm();
+    sControl.notifyInitialCalibration(calibratedDistance);
   initializeNetwork();
   // Start the event queue
   t.start(callback(&queue, &EventQueue::dispatch_forever));
