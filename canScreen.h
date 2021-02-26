@@ -1,9 +1,10 @@
+#include "Adafruit_SSD1331.h"
 class canScreen
 {
     public:
-    canScreen();
-    void updateScreenInfo(int fillPercentage);
+    canScreen(Adafruit_SSD1331 OLEDScreen);
+    void updateScreenInfo(Adafruit_SSD1331 OLEDScreen,int fillPercentage);
     private:
-    void initialize();
+    void initialize(Adafruit_SSD1331 OLEDScreen);
 };
 

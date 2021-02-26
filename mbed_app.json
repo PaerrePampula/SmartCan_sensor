@@ -1,0 +1,47 @@
+{
+    "config": {
+        "wifi-ssid": {
+            "help": "WiFi SSID",
+            "value": "\"Kotiboksi_585A\""
+        },
+        "wifi-password": {
+            "help": "WiFi Password",
+            "value": "\"6A328B4672389\""
+        },
+        "esp-rx-pin": {
+            "help": "ESP8266 module RX pin",
+            "value": "PB_7"
+        },
+        "esp-tx-pin": {
+            "help": "ESP8266 module TX pin",
+            "value": "PB_6"
+        },
+        "mqtt-id": {
+            "help": "MQTT Client id",
+            "value": "\"test1\""
+        },
+        "mqtt-broker-ip": {
+            "help": "MQTT Broker host ip.",
+            "value": "\"\""
+        },
+      "mqtt-broker-hostname": {
+            "help": "MQTT Broker resolvable hostname.",
+            "value": "\"iot.research.hamk.fi\""
+        },
+        "mqtt-broker-port": {
+            "help": "MQTT Broker port",
+            "value": "1883"
+        },
+        "mqtt-topic": {
+            "help": "MQTT topic to publish",
+            "value": "\"test1\""
+        }
+    },
+    "target_overrides": {
+        "*": {
+            "platform.stdio-convert-newlines": true,
+            "esp8266.provide-default" : false,
+            "esp8266.built-in-dns": true
+        }
+    }
+}
