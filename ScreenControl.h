@@ -14,6 +14,7 @@ class ScreenControl
 public:
   ScreenControl(Adafruit_SSD1331 &screen);
   void notifyInitialCalibration(int initialDepth);
+  void notifyNewCalculation(int newCalculation);
 private:
   Adafruit_SSD1331 *OLED;
   void init();
