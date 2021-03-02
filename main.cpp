@@ -29,7 +29,9 @@ bool canMeasure = true;
 static int foundDistance = 0;
 static int foundDifference;
 static unsigned int calibratedDistance = 0;
-
+char *id = "d:913ydf:MQTTClient:Garbage";     // d:<org-id>:<device-type>:<device-id>
+char *username = "use-token-auth";      // 
+char *password = "6+pdCOn1FT(q+A-k+y";  // auth token
 void initializeNetwork() 
 {
 
@@ -135,20 +137,21 @@ while (1)
             ThisThread::sleep_for(2000ms);
             printf("%i\n", foundDistance);
 
-            updateScreenInfo();
+            //updateScreenInfo();
             newEvent = !newEvent;
 
             MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
             data.MQTTVersion = 3;
-            char *id = MBED_CONF_APP_MQTT_ID;
-            data.clientID.cstring = id;
 
+            data.clientID.cstring = id;
+            data.username.cstring = username;
+            data.password.cstring = password;
             char buffer[64];
             sprintf(buffer, "{ \"canpercent\":\"%i\" }", foundDifference);
             MQTT::Message msg;
             msg.qos = MQTT::QOS0;
-            msg.retained = true;
-            msg.dup = true;
+            msg.retained = false;
+            msg.dup = false;
 
             msg.payload = (void *)buffer;
             msg.payloadlen = strlen(buffer);

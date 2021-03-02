@@ -26,7 +26,7 @@
         },
       "mqtt-broker-hostname": {
             "help": "MQTT Broker resolvable hostname.",
-            "value": "\"iot.research.hamk.fi\""
+            "value": "\"913ydf.messaging.internetofthings.ibmcloud.com\""
         },
         "mqtt-broker-port": {
             "help": "MQTT Broker port",
@@ -34,7 +34,7 @@
         },
         "mqtt-topic": {
             "help": "MQTT topic to publish",
-            "value": "\"test1\""
+            "value": "\"iot-2/evt/Garbage/fmt/json\""
         }
     },
     "target_overrides": {
