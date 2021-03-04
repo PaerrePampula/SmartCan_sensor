@@ -28,10 +28,11 @@ unsigned short calibratedDistance = 0;
 
 void calculateNewDifferenceToCalibratedDepth() 
 {
-
+    
     float depthDifference = ((float)foundDistance / (float)calibratedDistance) * 100;
-    printf("New calculation:%f%% difference", depthDifference);
+
     foundDifference = 100 - (int)depthDifference;
+    printf("New calculation:%f%% difference\n", foundDifference);
 
 }
 void distanceCalculationHandle() 
@@ -79,7 +80,8 @@ int main()
     while (1) 
     {
         if (newEvent) 
-        {
+        {   
+            printf("%i", foundDistance);
             //Prevent any new firings of this event
             newEvent = !newEvent;
             //Sleep for a while, to wait to make sure that the can is indeed closed
