@@ -32,5 +32,9 @@ void ScreenControl::notifyNewCalculation(int newCalculation)
     OLED->setCursor(0, 15);  // cursor is in x=0 and y=15
     OLED->setTextSize(2);    // size of text
     OLED->setTextColor(Red); // text in red colour
-    OLED->printf("%i%% Full!", newCalculation);
+    OLED->printf("%i%% Full", newCalculation);
+    if (newCalculation >= 90)
+    {
+        OLED->printf("[EMPTY CAN!]");
+    }
 }

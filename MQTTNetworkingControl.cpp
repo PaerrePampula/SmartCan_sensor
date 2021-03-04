@@ -1,5 +1,6 @@
 #include "MQTTNetworkingControl.h"
-MQTTNetworkingControl::MQTTNetworkingControl(ESP8266Interface& espInterface) : esp(&espInterface), client(&socket), ntp(esp)
+#include <cstdio>
+MQTTNetworkingControl::MQTTNetworkingControl(ESP8266Interface& espInterface) : esp(espInterface), client(&socket), ntp(&esp)
 {
     init();
 }
@@ -12,7 +13,7 @@ void MQTTNetworkingControl::init()
 void MQTTNetworkingControl::initNetwork()
 {
     printf("\n[WIFI CONNECTING...]\n");
-    int ret = esp->connect(MBED_CONF_APP_WIFI_SSID, MBED_CONF_APP_WIFI_PASSWORD,
+    int ret = esp.connect(MBED_CONF_APP_WIFI_SSID, MBED_CONF_APP_WIFI_PASSWORD,
                             NSAPI_SECURITY_WPA_WPA2);
     if (ret != 0) {
         printf("\nConnection error\n");
@@ -20,7 +21,7 @@ void MQTTNetworkingControl::initNetwork()
         printf("\nConnection success\n");
     }
     //get the hosting mqtt-broker with a www-address, configured in the JSON-file
-    esp->gethostbyname(MBED_CONF_APP_MQTT_BROKER_HOSTNAME, &MQTTBroker, NSAPI_IPv4,
+    esp.gethostbyname(MBED_CONF_APP_MQTT_BROKER_HOSTNAME, &MQTTBroker, NSAPI_IPv4,
                         "esp");
     //Then also get the correct port set by JSON-file
     MQTTBroker.set_port(MBED_CONF_APP_MQTT_BROKER_PORT);
@@ -31,6 +32,10 @@ void MQTTNetworkingControl::initNTP()
 }
 void MQTTNetworkingControl::createAndSendMQTTMessage(int depthDifference)
 {
+        char *id = "d:913ydf:MQTTClient:Garbage";     // d:<org-id>:<device-type>:<device-id>
+    char *username = "use-token-auth";      // 
+    char *password = "6+pdCOn1FT(q+A-k+y";  // auth token
+
             time_t timestamp = ntp.get_timestamp();
             timestamp += (60*60*2);  //  GMT +2 for Finnish timezone.
 
@@ -44,7 +49,7 @@ void MQTTNetworkingControl::createAndSendMQTTMessage(int depthDifference)
 
             char buffer[64];
             sprintf(buffer, "{ \"canpercent\":\"%i\", \"time\":\"%lld\" }",  depthDifference, (long long)timestamp);
-            printf(buffer);
+            printf(buffer, "\n");
 
             //Create an MQTT message, which is given the buffer as the payload, to be sent to the MQTT-broker
             MQTT::Message msg;
@@ -59,5 +64,6 @@ void MQTTNetworkingControl::createAndSendMQTTMessage(int depthDifference)
             client.connect(data);
             client.publish(MBED_CONF_APP_MQTT_TOPIC, msg);
             client.disconnect();
+            printf("DATA SENT");
 }
 
