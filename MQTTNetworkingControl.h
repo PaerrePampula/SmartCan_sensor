@@ -14,9 +14,12 @@ class MQTTNetworkingControl
     void init();
     void initNetwork();
     void initNTP();
+    char *id = "d:913ydf:MQTTClient:Garbage";     // d:<org-id>:<device-type>:<device-id>
+    char *username = "use-token-auth";      // 
+    char *password = "6+pdCOn1FT(q+A-k+y";  // auth token
 
     //Fields
-    ESP8266Interface& esp;
+    ESP8266Interface *esp;
     // Store device IP
     SocketAddress deviceIP;
     // Store broker IP
