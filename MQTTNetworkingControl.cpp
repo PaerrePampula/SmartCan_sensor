@@ -1,5 +1,5 @@
 #include "MQTTNetworkingControl.h"
-#include <cstdio>
+
 MQTTNetworkingControl::MQTTNetworkingControl(ESP8266Interface& espInterface) : esp(espInterface), client(&socket), ntp(&esp)
 {
     init();
@@ -7,8 +7,8 @@ MQTTNetworkingControl::MQTTNetworkingControl(ESP8266Interface& espInterface) : e
 
 void MQTTNetworkingControl::init()
 {
-    initNetwork();
-    initNTP();
+    MQTTNetworkingControl::initNetwork();
+    MQTTNetworkingControl::initNTP();
 }
 void MQTTNetworkingControl::initNetwork()
 {
@@ -48,14 +48,14 @@ void MQTTNetworkingControl::createAndSendMQTTMessage(int depthDifference)
             //64 should be plenty for this
 
             char buffer[64];
-            sprintf(buffer, "{ \"canpercent\":\"%i\", \"time\":\"%lld\" }",  depthDifference, (long long)timestamp);
+            sprintf(buffer, "{ \"canpercent\":%i, \"time\":%lld }",  depthDifference, (long long)timestamp);
             printf(buffer, "\n");
 
             //Create an MQTT message, which is given the buffer as the payload, to be sent to the MQTT-broker
             MQTT::Message msg;
-            //msg.qos = MQTT::QOS0;
-            //msg.retained = false;
-            //msg.dup = false;
+            msg.qos = MQTT::QOS0;
+            msg.retained = false;
+            msg.dup = false;
             msg.payload = (void *)buffer;
             msg.payloadlen = strlen(buffer);
             

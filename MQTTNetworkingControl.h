@@ -1,5 +1,5 @@
-#include "ESP8266Interface.h"
 #include <MQTTClientMbedOs.h>
+#include "ESP8266Interface.h"
 #include "ntp-client/NTPClient.h"
 #define ntpAddress "time.mikes.fi"  // The VTT Mikes in Helsinki
 #define ntpPort 123     // Typically 123 for every NTP server
@@ -7,7 +7,7 @@
 class MQTTNetworkingControl
 {
     public:
-    MQTTNetworkingControl(ESP8266Interface &espInterface);
+    MQTTNetworkingControl(ESP8266Interface& espInterface);
     void createAndSendMQTTMessage(int depthDifference);
     private:
 
@@ -16,7 +16,7 @@ class MQTTNetworkingControl
     void initNTP();
 
     //Fields
-    ESP8266Interface& esp;
+    ESP8266Interface &esp;
     // Store device IP
     SocketAddress deviceIP;
     // Store broker IP

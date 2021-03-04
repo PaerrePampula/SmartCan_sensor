@@ -2,7 +2,7 @@
 #include "MQTTNetworkingControl.h"
 #include "DistanceSensor.h"
 #include "mbed.h"
-#include <cstdio>
+#include "ESP8266Interface.h"
 
 //Electrical components
 ESP8266Interface esp(MBED_CONF_APP_ESP_TX_PIN, MBED_CONF_APP_ESP_RX_PIN);
@@ -32,7 +32,7 @@ void calculateNewDifferenceToCalibratedDepth()
     float depthDifference = ((float)foundDistance / (float)calibratedDistance) * 100;
 
     foundDifference = 100 - (int)depthDifference;
-    printf("New calculation:%f%% difference\n", foundDifference);
+    printf("New calculation:%hu%% difference\n", foundDifference);
 
 }
 void distanceCalculationHandle() 
