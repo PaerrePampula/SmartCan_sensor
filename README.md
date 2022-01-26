@@ -16,7 +16,7 @@ A wifi adapter, the ESP82266 is preferrable
 
 nucleo l432kc board.
 
-soldering tools for the magnetic contact.
+soldering tools for the magnetic contact (and possibly the sonar device)
 
 and ofcourse the wiring, more info on those in the source code.
 
