@@ -23,4 +23,4 @@ My version was built on a breadboard, but you could ofcourse, solder the thing t
 
 The magnetic contacts should be placed so that they carry current whenever the lid is closed, and not when it opens, place them like so.
 
-The system starts up whenever the lid gets closed, measuring the distance to the bottom of the container. Max distance is about 30cm, so the container must be smaller or equals to 30cm in depth
+The system starts up whenever the lid gets closed, measuring the distance to the bottom of the container, meaning that the sonar should be placed under the lid of the container. Max distance is about 30cm, so the container must be smaller or equals to 30cm in depth
