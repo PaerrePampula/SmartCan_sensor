@@ -5,7 +5,8 @@
 # Usage 
 Built using MBED OS, so download the development software for that.
 Needed parts:
-A distance sensor, sonar.
+
+distance sensor, sonar. Two DIY stereos could even work with the other one configured to be a microphone, but you could also make it a bit easier on yourself if you just buy a 1-2 euro sonar made for projects like these off the internet
 
 An OLED screen, built on the Adafruit_SSD1331, so that is preferrable
 
