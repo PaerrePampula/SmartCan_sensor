@@ -2,6 +2,7 @@
  A project demonstrating the concept of a trashcan that is able to measure and display information about its' fullness. Made using MBED-OS
  Also creates data on an IoT platform. This platform however is no longer active.
  
+ Built as a part of an IoT student module, received grading: 10.0/12
 # Usage 
 Built using MBED OS, so download the development software for that.
 Needed parts:
