@@ -12,7 +12,7 @@ An OLED screen, built on the Adafruit_SSD1331, so that is preferrable
 
 A magnetic contact
 
-A wifi adapter, the ESP82266 is preferrable
+A wifi adapter, the ESP82266 is preferrable. Currently my IoT plaform is not on, so this is a bit pointless, unless you build your own IoT cloud database, which should work as well, just point the json file to that place
 
 nucleo l432kc board.
 
